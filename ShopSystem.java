@@ -5,45 +5,111 @@ import java.util.Scanner;
 
 public class ShopSystem {
 
-    static String[] customerNames=new String[0];
+    static String[] customerNames = new String[0];
     static char[] q1 = {'X', 'X'};
     static char[] q2 = {'X', 'X', 'X'};
     static char[] q3 = {'X', 'X', 'X', 'X', 'X'};
 
+
+
+    static String[][] Q1 = {{"", "X"}, {"", "X"}};
+    static String[][] Q2 = {{"", "X"}, {"", "X"}, {"", "X"}};
+    static String[][] Q3 = {{"", "X"}, {"", "X"}, {"", "X"}, {"", "X"}, {"", "X"}};
+
     public final static void clearConsole() {
-        try{
+        try {
             final String os = System.getProperty("os.name");
             if (os.contains("Windows")) {
                 new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            }else{
+            } else {
                 System.out.print("\033[H\033[2J");
                 System.out.flush();
             }
-        }catch (final Exception e) {
+        } catch (final Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void line(){
+    public static void line() {
         System.out.print(" --------------------------------------------------------------------------------------------------------------");
         System.out.println();
     }
 
-    public static void viewAllQueues(){
+    public static void viewAllQueues() {
         Scanner input = new Scanner(System.in);
+
+        String[] tempQ1 = {Q1[0][1], Q1[1][1]};
+        String[] tempQ2 = {Q2[0][1], Q2[1][1], Q2[2][1]};
+        String[] tempQ3 = {Q3[0][1], Q3[1][1], Q3[2][1], Q3[3][1], Q3[4][1]};
 
         System.out.println("*****************");
         System.out.println("  * Cashiers *");
         System.out.println("*****************");
 
-        for(int i=0; i<5; i++) {
+        for (int i = 0; i < 5; i++) {
             if (i < 2) {
-                System.out.print("   " + q1[i] + "  " + q2[i] + "  " + q3[i]);
+                System.out.print("   " + tempQ1[i] + "  " + tempQ2[i] + "  " + tempQ3[i]);
                 System.out.println();
             } else if (i == 2) {
+                System.out.print("      " + tempQ2[i] + "  " + tempQ3[i]);
+                System.out.println();
+            } else {
+                System.out.print("         " + tempQ3[i]);
+                System.out.println();
+
+            }
+        }
+//        String[] tempQ1 = {Q1[0][1], Q1[1][1]};
+//        String[] tempQ2 = {Q2[0][1], Q2[1][1], Q2[2][1]};
+//        String[] tempQ3 = {Q3[0][1], Q3[1][1], Q3[2][1], Q3[3][1], Q3[4][1]};
+//
+//
+//        String[][] arrays = {tempQ1, tempQ2, tempQ3};
+//
+//        // Print the output
+//        for (int i = 0; i < arrays.length; i++) {
+//            for (int j = 0; j < arrays[i].length; j++) {
+//                System.out.print(arrays[j][i] + " ");
+//            }
+//            System.out.println();
+//        }
+
+        System.out.print("Press any character to load the main menu... : ");
+        input.next().charAt(0);
+
+    }
+
+    public static void viewAllEmptyQueues2() {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("*****************");
+        System.out.println("  * empty Cashiers *");
+        System.out.println("*****************");
+
+        for (int i = 0; i < 5; i++) {
+            if (i < 2) {
+                if (q1[0] == 'X' && q1[1] == 'X') {
+                    System.out.print("q11111111111");
+                    System.out.print("   " + q1[i]);
+                    //System.out.print("   " + q1[i] + "  " + q2[i] + "  " + q3[i]);
+                    //System.out.println();
+                }
+                if (q2[0] == 'X' && q2[1] == 'X' && q2[2] == 'X') {
+                    System.out.print("q22222");
+                    System.out.print("   " + q2[i]);
+                }
+                if (q3[0] == 'X' && q3[1] == 'X' && q3[2] == 'X' && q3[3] == 'X' && q3[4] == 'X') {
+                    System.out.print("q3333   ");
+                    System.out.print("   " + q3[i]);
+                }
+
+            } else if (i == 2) {
+                System.out.println();
+                System.out.print("bbbbbb");
                 System.out.print("      " + q2[i] + "  " + q3[i]);
                 System.out.println();
             } else {
+                System.out.print("ccccccc");
                 System.out.print("         " + q3[i]);
                 System.out.println();
 
@@ -53,73 +119,294 @@ public class ShopSystem {
         System.out.print("Press any character to load the main menu... : ");
         input.next().charAt(0);
 
-        }
+    }
 
-    public static void QuesandPositions(){
-            Scanner input = new Scanner(System.in);
-            System.out.println("Enter the que and the position you want to add>> ");
+    public static void viewAllEmptyQueues() {
+        Scanner input = new Scanner(System.in);
 
-            outer:while (true) {
-                System.out.print("\t\tQue: ");
-                int que = input.nextInt();
+        System.out.println("*****************");
+        System.out.println("  * Cashiers *");
+        System.out.println("*****************");
 
-                while (true) {
-                    if (que == 1) {
-                        System.out.print("\t\tPosition: ");
-                        int position = input.nextInt();
-                        if (position > 0 & position <= 2) {
-                            updateQueArray(q1,position);
-                            //System.out.println("Customer added successfully");
-                            break outer;
+        for (int i = 0; i < 5; i++) {
+            if (i < 2) {
+                //if(q1[0] == 'X' & q1[1] == 'X'){
+                System.out.print("   " + q1[i] + "  " + q2[i] + "  " + q3[i]);
+                System.out.println();
+                //}
+            } else if (i == 2) {
+                //if (q2[0] == 'X' & q2[1] == 'X' & q2[2] == 'X'){
+                System.out.print("      " + q2[i] + "  " + q3[i]);
+                System.out.println();
+                //}
 
-                        } else
-                            System.out.println("\t\tInvalid position\n");
-                        continue;
-                    }
-                    else if (que == 2) {
-                        System.out.print("\t\tPosition: ");
-                        int position = input.nextInt();
-                        if (position > 0 & position <= 3) {
-                            //updateQueArray
-                            System.out.println("Customer added successfully");
-                            break outer;
-                        }else
-                            System.out.println("\t\tInvalid position\n");
-                        continue;
-
-                    }
-                    else if (que == 3) {
-                        System.out.print("\t\tPosition: ");
-                        int position = input.nextInt();
-                        if (position > 0 & position <= 5) {
-                            //updateQueArray
-                            System.out.println("Customer added successfully");
-                            break outer;
-                        }else
-                            System.out.println("\t\tInvalid position\n");
-                        continue;
-
-                    }
-                    else
-                        System.out.println("\t\tInvalid Que.\n");
-                    break;
-
-                }
+            } else {
+                //if (q3[0] == 'X' & q3[1] == 'X' & q3[2] == 'X' & q3[3] == 'X' & q3[4] == 'X'){
+                System.out.print("         " + q3[i]);
+                System.out.println();
+                //}
 
             }
 
+            System.out.print("Press any character to load the main menu... : ");
+            input.next().charAt(0);
+        }
+
     }
 
-    public static void updateQueArray(char[] q,int pos){
-        if (q[pos-1] == 'X') {
-            q[pos - 1] = '0';
-            System.out.println("Customer added successfully");
+    public static void updateRemovearray(String[][] twoDArray){
+
+        String[] arrayToRemove = {"", "X"};
+        String[] arrayToAdd = {"", "X"};
+
+        int indexToRemove = -1;
+        for (int i = 0; i < twoDArray.length; i++) {
+            if (Arrays.equals(twoDArray[i], arrayToRemove)) {
+                indexToRemove = i;
+                break;
+            }
         }
-        else if (q[pos-1] == '0') {
-            System.out.println("\t\tQue postion already allocated.\n");
+        if (indexToRemove != -1) {
+            String[][] tempArray = new String[twoDArray.length - 1][];
+            System.arraycopy(twoDArray, 0, tempArray, 0, indexToRemove);
+            System.arraycopy(twoDArray, indexToRemove + 1, tempArray, indexToRemove, twoDArray.length - indexToRemove - 1);
+            twoDArray = tempArray;
+        }
+        String[][] newArray = Arrays.copyOf(twoDArray, twoDArray.length + 1);
+        newArray[newArray.length - 1] = arrayToAdd;
+        twoDArray = newArray;
+
+        System.out.println("Customer removed & updated the que sucessfully..");
+
+    }
+    public static void removeCustomer(){
+        Scanner input = new Scanner(System.in);
+
+        outer:while(true){
+            line();
+            System.out.println("\t\t\t\t\t\t  REMOVE A CUSTOMER \t\t\t\t\t       ");
+            line();
+            System.out.println();
+
+            System.out.println("Enter the que and the position you want to remove>> ");
+            System.out.print("\t\tQue: ");
+            int que = input.nextInt();
+            System.out.print("\t\tPosition: ");
+            int position = input.nextInt();
+
+
+            if(que == 1 & position == 1){
+                if (Q1[0][1] == "0") {
+                    Q1[0][1] = "X";
+                    Q1[0][0] = "";
+                    updateRemovearray(Q1);
+                    break;
+                }
+                else {
+                    System.out.println("No customer is in that position.");
+                    continue;
+                }
+            }
+            else if(que == 1 & position == 2){
+                if (Q1[1][1] == "0") {
+                    Q1[1][1] = "X";
+                    Q1[1][0] = "";
+                    updateRemovearray(Q1);
+                    break;
+                }
+                else {
+                    System.out.println("No customer is in that position.");
+                    continue;
+                }
+            }
+            else if(que == 2 & position == 1){
+                if (Q2[0][1] == "0") {
+                    Q2[0][1] = "X";
+                    Q2[0][0] = "";
+                    updateRemovearray(Q2);
+                    break;
+                }
+                else {
+                    System.out.println("No customer is in that position.");
+                    continue;
+                }
+            }
+            else if(que == 2 & position == 2){
+                if (Q2[1][1] == "0") {
+                    Q2[1][1] = "X";
+                    Q2[1][0] = "";
+                    updateRemovearray(Q2);
+                    break;
+                }
+                else {
+                    System.out.println("No customer is in that position.");
+                    continue;
+                }
+            }
+            else if(que == 2 & position == 3){
+                if (Q2[2][1] == "0") {
+                    Q2[2][1] = "X";
+                    Q2[2][0] = "";
+                    updateRemovearray(Q2);
+                    break;
+                }
+                else {
+                    System.out.println("No customer is in that position.");
+                    continue;
+                }
+            }
+            else if(que == 3 & position == 1){
+                if (Q3[0][1] == "0") {
+                    Q3[0][1] = "X";
+                    Q3[0][0] = "";
+                    updateRemovearray(Q3);
+                    break;
+                }
+                else {
+                    System.out.println("No customer is in that position.");
+                    continue;
+                }
+            }
+            else if(que == 3 & position == 2){
+                if (Q3[1][1] == "0") {
+                    Q3[1][1] = "X";
+                    Q3[1][0] = "";
+                    updateRemovearray(Q3);
+                    break;
+                }
+                else {
+                    System.out.println("No customer is in that position.");
+                    continue;
+                }
+            }
+            else if(que == 3 & position == 3){
+                if (Q3[2][1] == "0") {
+                    Q3[2][1] = "X";
+                    Q3[2][0] = "";
+                    updateRemovearray(Q3);
+                    break;
+                }
+                else {
+                    System.out.println("No customer is in that position.");
+                    continue;
+                }
+            }
+            else if(que == 3 & position == 4){
+                if (Q3[3][1] == "0") {
+                    Q3[3][1] = "X";
+                    Q3[3][0] = "";
+                    updateRemovearray(Q3);
+                    break;
+                }
+                else {
+                    System.out.println("No customer is in that position.");
+                    continue;
+                }
+            }
+            else if(que == 3 & position == 5){
+                if (Q3[4][1] == "0") {
+                    Q3[4][1] = "X";
+                    Q3[4][0] = "";
+                    updateRemovearray(Q3);
+                    break;
+                }
+                else {
+                    System.out.println("No customer is in that position.");
+                    continue;
+                }
+            }
+
+            while (true) {
+                System.out.print("Do you want to add another Customer (Y/N) : ");
+                char ch = input.next().charAt(0);
+                if (ch == 'Y' || ch == 'y') {
+                    clearConsole();
+                    continue outer;
+                } else if (ch == 'N' || ch == 'n') {
+                    clearConsole();
+                    return;
+                } else {
+                    System.out.println("\tInvalid Input...  \n");
+                    continue;
+
+                }
+            }
+
         }
     }
+    public static void checkandfill0s(String addname) {
+        Scanner input = new Scanner(System.in);
 
+        while (true) {
+            System.out.print("Enter the que you want to add>> ");
+            int que = input.nextInt();
+
+            if (que > 0) {
+                if (que == 1) {
+                    if (Q1[0][1] == "X") {
+                        Q1[0][1] = "0";
+                        Q1[0][0] = addname;
+                        break;
+                    } else if (Q1[1][1] == "X") {
+                        Q1[1][1] = "0";
+                        Q1[1][0] = addname;
+                        break;
+                    } else {
+                        System.out.println("Que is full..try another one.");
+                        continue;
+                    }
+                } else if (que == 2) {
+                    if (Q2[0][1] == "X") {
+                        Q2[0][1] = "0";
+                        Q2[0][0] = addname;
+                        break;
+                    } else if (Q2[1][1] == "X") {
+                        Q2[1][1] = "0";
+                        Q2[1][0] = addname;
+                        break;
+                    } else if (Q2[2][1] == "X") {
+                        Q2[2][1] = "0";
+                        Q2[2][0] = addname;
+                        break;
+                    } else {
+                        System.out.println("Que is full..try another one.");
+                        continue;
+                    }
+                } else if (que == 3) {
+                    if (Q3[0][1] == "X") {
+                        Q3[0][1] = "0";
+                        Q3[0][0] = addname;
+                        break;
+                    } else if (Q3[1][1] == "X") {
+                        Q3[1][1] = "0";
+                        Q3[1][0] = addname;
+                        break;
+                    } else if (Q3[2][1] == "X") {
+                        Q3[2][1] = "0";
+                        Q3[2][0] = addname;
+                        break;
+                    } else if (Q3[3][1] == "X") {
+                        Q3[3][1] = "0";
+                        Q3[3][0] = addname;
+                        break;
+                    } else if (Q3[4][1] == "X") {
+                        Q3[4][1] = "0";
+                        Q3[4][0] = addname;
+                        break;
+                    } else {
+                        System.out.println("Que is full..try another one.");
+                        continue;
+                    }
+
+                }
+            }
+            else {
+                System.out.println("\tInvalid input..");
+                continue;
+            }
+
+        }
+    }
 
     public static void addNewCustomer() {
         Scanner input = new Scanner(System.in);
@@ -130,25 +417,18 @@ public class ShopSystem {
             line();
             System.out.println();
 
-//Adding Customer name to the array.
             String name;
             System.out.print("Enter Customer Name: ");
             name = input.next();
             name = name.substring(0, 1).toUpperCase() + name.substring(1);
 
-            String[] temp2 = new String[customerNames.length + 1];
-            for (int i = 0; i < customerNames.length; i++) {
-                temp2[i] = customerNames[i];
-            }
-            customerNames = temp2;
-            customerNames[customerNames.length - 1] = name;
-            System.out.println(Arrays.toString(customerNames));
+            checkandfill0s(name);
 
-            QuesandPositions();
+            System.out.println("Customer added sucessfully..");
 
             char ch;
             while (true) {
-                System.out.print("Do you want to add Customer (Y/N) : ");
+                System.out.print("Do you want to add another Customer (Y/N) : ");
                 ch = input.next().charAt(0);
                 if (ch == 'Y' || ch == 'y') {
                     clearConsole();
@@ -160,14 +440,10 @@ public class ShopSystem {
                     System.out.println("\tInvalid Input...  \n");
                     continue;
 
-
-
                 }
             }
         }
     }
-
-
 
     public static void homepage(){
         line();
@@ -207,7 +483,9 @@ public class ShopSystem {
 
                 case "101":
                 case "VEQ":
-//                    homepage();
+                    viewAllEmptyQueues2();
+                    //viewAllEmptyQueues();
+                    homepage();
                     break;
                 case "102":
                 case "ACQ":
@@ -216,7 +494,7 @@ public class ShopSystem {
                     break;
                 case "103":
                 case "RCQ":
-                    //get the 'B' image;
+                    removeCustomer();
                     break;
                 case "104":
                 case "PCQ":
