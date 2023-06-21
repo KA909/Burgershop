@@ -1,6 +1,7 @@
 import java.lang.reflect.Array;
 import java.sql.SQLOutput;
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.Objects;
 import java.util.Scanner;
 import java.io.BufferedWriter;
@@ -9,6 +10,7 @@ import java.io.IOException;
 import java.io.File;
 
 public class ShopSystem {
+
 
     static String[] customerNames = new String[10];
 
@@ -109,13 +111,10 @@ public class ShopSystem {
 
     }
 
-
-
     public static void removeServedcustomerLogic(String[][] newArray, int len) {
 
         if (len == 2) {
             if (Q1[0][1] == "0") {
-
                 Q1[0][0] = Q1[1][0];
                 Q1[0][1] = Q1[1][1];
                 Q1[1][0] = "";
@@ -127,43 +126,50 @@ public class ShopSystem {
             }
 
         } else if (len == 3) {
-            if (Q2[0][1] == "0") {
-                Q2[0][0] = Q2[1][0];
-                Q2[0][1] = Q2[1][1];
-                Q2[1][0] = Q2[2][0];
-                Q2[1][1] = Q2[2][1];
-                Q2[2][0] = "";
-                Q2[2][1] = "X";
+            if (Q2[0][1] == "0"){
+                for(int i=0; i<2; i++){
+                    Q2[i][0] = Q2[i+1][0];
+                    Q2[i][1] = Q2[i+1][1];
 
+                    if(i==2){
+                        Q3[i+1][0] = "";
+                        Q3[i+1][1] = "X";
+                    }
+                }
                 System.out.println("Customer has been served..");
                 Burgercount -= 5;
-            } else {
+            }
+            else {
                 System.out.println("No customer is in the que to serve");
             }
 
         } else if (len == 5) {
-            if (Q3[0][1] == "0") {
-                Q3[0][0] = Q3[1][0];
-                Q3[0][1] = Q3[1][1];
-                Q3[1][0] = Q3[2][0];
-                Q3[1][1] = Q3[2][1];
-                Q3[2][0] = Q3[3][0];
-                Q3[2][1] = Q3[3][1];
-                Q3[3][0] = Q3[4][0];
-                Q3[3][1] = Q3[4][1];
-                Q3[4][0] = "";
-                Q3[4][1] = "X";
+            if (Q3[0][1] == "0"){
+                for(int i=0; i<4; i++){
+                    Q3[i][0] = Q3[i+1][0];
+                    Q3[i][1] = Q3[i+1][1];
+
+                    if(i==3){
+                        Q3[i+1][0] = "";
+                        Q3[i+1][1] = "X";
+
+                    }
+                }
                 System.out.println("Customer has been served..");
                 Burgercount -= 5;
-            } else {
+            }
+            else {
                 System.out.println("No customer is in the que to serve");
+            }
             }
         }
 
-    }
-    
     public static void removeServedcustomer(){
         Scanner input = new Scanner(System.in);
+        line();
+        System.out.println("\t\t\t\t\t\t  REMOVE SERVED CUSTOMER \t\t\t\t\t       ");
+        line();
+        System.out.println();
 
         outer:while (true) {
             System.out.print("Enter Que number you want serve first>>");
@@ -178,6 +184,9 @@ public class ShopSystem {
             else {
                 System.out.println("Invalid input.");
                 continue;
+            }
+            if(Burgercount <= 10){
+                System.out.println("WARNING: Stock is reaching out of the limit.Remaining burger count: " + Burgercount);
             }
 
             while (true) {
@@ -291,7 +300,6 @@ public class ShopSystem {
     return 5;
     }
 
-
     public static void removeCustomer(){
         Scanner input = new Scanner(System.in);
 
@@ -362,10 +370,12 @@ public class ShopSystem {
                         Q1[1][1] = "0";
                         Q1[1][0] = addname;
                         break;
-                    } else {
+                    }
+                    else {
                         System.out.println("Que is full..try another one.");
                         continue;
                     }
+
                 } else if (que == 2) {
                     if (Q2[0][1] == "X") {
                         Q2[0][1] = "0";
@@ -421,53 +431,59 @@ public class ShopSystem {
 
     public static void addNewCustomer() {
         Scanner input = new Scanner(System.in);
-
-        outer:while (true) {
-            line();
-            System.out.println("\t\t\t\t\t\t  ADD NEW CUSTOMER  \t\t\t\t\t       ");
-            line();
-            System.out.println();
-
-            String name;
-            System.out.print("Enter Customer Name: ");
-            name = input.next();
-            name = name.substring(0, 1).toUpperCase() + name.substring(1);
-
-            checkandfill0s(name);
-
-            System.out.println("Customer added sucessfully..");
-
-            char ch;
+        try {
+            outer:
             while (true) {
-                System.out.print("Do you want to add another Customer (Y/N) : ");
-                ch = input.next().charAt(0);
-                if (ch == 'Y' || ch == 'y') {
-                    clearConsole();
-                    continue outer;
-                } else if (ch == 'N' || ch == 'n') {
-                    clearConsole();
-                    return;
-                } else {
-                    System.out.println("\tInvalid Input...  \n");
-                    continue;
+                line();
+                System.out.println("\t\t\t\t\t\t  ADD NEW CUSTOMER  \t\t\t\t\t       ");
+                line();
+                System.out.println();
 
+                String name;
+                System.out.print("Enter Customer Name: ");
+                name = input.next();
+                name = name.substring(0, 1).toUpperCase() + name.substring(1);
+
+                checkandfill0s(name);
+
+                System.out.println("Customer added sucessfully..");
+
+                char ch;
+                while (true) {
+                    System.out.print("Do you want to add another Customer (Y/N) : ");
+                    ch = input.next().charAt(0);
+                    if (ch == 'Y' || ch == 'y') {
+                        clearConsole();
+                        continue outer;
+                    } else if (ch == 'N' || ch == 'n') {
+                        clearConsole();
+                        return;
+                    } else {
+                        System.out.println("\tInvalid Input...  \n");
+                        continue;
+
+                    }
                 }
             }
+        }
+        catch (Exception e) {
+            System.out.println("Invalid input");
         }
     }
 
     public static void ViewRemainingBurgerStock(){
         System.out.println("Remaining Burger Count: " + Burgercount);
+
     }
     public static void AddBurgertoStock(){
         while (true) {
             Scanner input = new Scanner(System.in);
 
-            System.out.println("Enter the burger amount to add: ");
+            System.out.print("Enter the burger amount to add: ");
             int refill_burger = input.nextInt();
 
             if ((Burgercount + refill_burger) > 50) {
-                System.out.println("Exceed the max burger count.");
+                System.out.println("Exceeded max burger count.");
                 continue;
             }
             else{
@@ -589,7 +605,6 @@ public class ShopSystem {
             if(Objects.equals(option, "999") | Objects.equals(option, "EXT")){
                 break;
             }
-
             switch (option) {
                 case "100":
                 case "VFQ":
@@ -626,25 +641,27 @@ public class ShopSystem {
                 case "106":
                 case "SPD":
                     writeDataintoFile();
+                    homepage();
                     break;
                 case "107":
                 case "LPD":
                     readFile();
+                    homepage();
                     break;
                 case "108":
                 case "STK":
                     ViewRemainingBurgerStock();
+                    homepage();
                     break;
                 case "109":
                 case "AFS":
                     AddBurgertoStock();
+                    homepage();
                     break;
-
                 default:
                     System.out.println("\t Invalid input...");
 
             }
-
 
         }
 
