@@ -1,20 +1,22 @@
 import java.lang.reflect.Array;
+import java.sql.SQLOutput;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Scanner;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.File;
 
 public class ShopSystem {
 
-    static String[] customerNames = new String[0];
-    static char[] q1 = {'X', 'X'};
-    static char[] q2 = {'X', 'X', 'X'};
-    static char[] q3 = {'X', 'X', 'X', 'X', 'X'};
-
-
+    static String[] customerNames = new String[10];
 
     static String[][] Q1 = {{"", "X"}, {"", "X"}};
     static String[][] Q2 = {{"", "X"}, {"", "X"}, {"", "X"}};
     static String[][] Q3 = {{"", "X"}, {"", "X"}, {"", "X"}, {"", "X"}, {"", "X"}};
+
+    static int Burgercount = 50;
 
     public final static void clearConsole() {
         try {
@@ -35,17 +37,7 @@ public class ShopSystem {
         System.out.println();
     }
 
-    public static void viewAllQueues() {
-        Scanner input = new Scanner(System.in);
-
-        String[] tempQ1 = {Q1[0][1], Q1[1][1]};
-        String[] tempQ2 = {Q2[0][1], Q2[1][1], Q2[2][1]};
-        String[] tempQ3 = {Q3[0][1], Q3[1][1], Q3[2][1], Q3[3][1], Q3[4][1]};
-
-        System.out.println("*****************");
-        System.out.println("  * Cashiers *");
-        System.out.println("*****************");
-
+    public static void printQuecol(String[] tempQ1, String[] tempQ2, String[] tempQ3){
         for (int i = 0; i < 5; i++) {
             if (i < 2) {
                 System.out.print("   " + tempQ1[i] + "  " + tempQ2[i] + "  " + tempQ3[i]);
@@ -59,20 +51,20 @@ public class ShopSystem {
 
             }
         }
-//        String[] tempQ1 = {Q1[0][1], Q1[1][1]};
-//        String[] tempQ2 = {Q2[0][1], Q2[1][1], Q2[2][1]};
-//        String[] tempQ3 = {Q3[0][1], Q3[1][1], Q3[2][1], Q3[3][1], Q3[4][1]};
-//
-//
-//        String[][] arrays = {tempQ1, tempQ2, tempQ3};
-//
-//        // Print the output
-//        for (int i = 0; i < arrays.length; i++) {
-//            for (int j = 0; j < arrays[i].length; j++) {
-//                System.out.print(arrays[j][i] + " ");
-//            }
-//            System.out.println();
-//        }
+
+    }
+    public static void viewAllQueues() {
+        Scanner input = new Scanner(System.in);
+
+        String[] tempQ1 = {Q1[0][1], Q1[1][1]};
+        String[] tempQ2 = {Q2[0][1], Q2[1][1], Q2[2][1]};
+        String[] tempQ3 = {Q3[0][1], Q3[1][1], Q3[2][1], Q3[3][1], Q3[4][1]};
+
+        System.out.println("*****************");
+        System.out.println("  * Cashiers *");
+        System.out.println("*****************");
+
+        printQuecol(tempQ1, tempQ2, tempQ3);
 
         System.out.print("Press any character to load the main menu... : ");
         input.next().charAt(0);
@@ -83,241 +75,113 @@ public class ShopSystem {
         Scanner input = new Scanner(System.in);
 
         System.out.println("*****************");
-        System.out.println("  * empty Cashiers *");
+        System.out.println("*    Cashiers   *");
         System.out.println("*****************");
 
-        for (int i = 0; i < 5; i++) {
-            if (i < 2) {
-                if (q1[0] == 'X' && q1[1] == 'X') {
-                    System.out.print("q11111111111");
-                    System.out.print("   " + q1[i]);
-                    //System.out.print("   " + q1[i] + "  " + q2[i] + "  " + q3[i]);
-                    //System.out.println();
-                }
-                if (q2[0] == 'X' && q2[1] == 'X' && q2[2] == 'X') {
-                    System.out.print("q22222");
-                    System.out.print("   " + q2[i]);
-                }
-                if (q3[0] == 'X' && q3[1] == 'X' && q3[2] == 'X' && q3[3] == 'X' && q3[4] == 'X') {
-                    System.out.print("q3333   ");
-                    System.out.print("   " + q3[i]);
-                }
+        String[] tempQ1 = {Q1[0][1], Q1[1][1]};
+        String[] tempQ2 = {Q2[0][1], Q2[1][1], Q2[2][1]};
+        String[] tempQ3 = {Q3[0][1], Q3[1][1], Q3[2][1], Q3[3][1], Q3[4][1]};
 
-            } else if (i == 2) {
-                System.out.println();
-                System.out.print("bbbbbb");
-                System.out.print("      " + q2[i] + "  " + q3[i]);
-                System.out.println();
-            } else {
-                System.out.print("ccccccc");
-                System.out.print("         " + q3[i]);
-                System.out.println();
-
+        for(String m: tempQ1){
+            if(m == "0"){
+                for(int i=0; i<tempQ1.length; i++){
+                    tempQ1[i] = " ";
+                }
             }
         }
-
+        for(String m: tempQ2){
+            if(m == "0"){
+                for(int i=0; i<tempQ2.length; i++){
+                    tempQ2[i] = " ";
+                }
+            }
+        }
+        for(String m: tempQ3){
+            if(m == "0"){
+                for(int i=0; i<tempQ3.length; i++){
+                    tempQ3[i] = " ";
+                }
+            }
+        }
+        printQuecol(tempQ1, tempQ2, tempQ3);
         System.out.print("Press any character to load the main menu... : ");
         input.next().charAt(0);
 
     }
 
-    public static void viewAllEmptyQueues() {
-        Scanner input = new Scanner(System.in);
 
-        System.out.println("*****************");
-        System.out.println("  * Cashiers *");
-        System.out.println("*****************");
 
-        for (int i = 0; i < 5; i++) {
-            if (i < 2) {
-                //if(q1[0] == 'X' & q1[1] == 'X'){
-                System.out.print("   " + q1[i] + "  " + q2[i] + "  " + q3[i]);
-                System.out.println();
-                //}
-            } else if (i == 2) {
-                //if (q2[0] == 'X' & q2[1] == 'X' & q2[2] == 'X'){
-                System.out.print("      " + q2[i] + "  " + q3[i]);
-                System.out.println();
-                //}
+    public static void removeServedcustomerLogic(String[][] newArray, int len) {
 
+        if (len == 2) {
+            if (Q1[0][1] == "0") {
+
+                Q1[0][0] = Q1[1][0];
+                Q1[0][1] = Q1[1][1];
+                Q1[1][0] = "";
+                Q1[1][1] = "X";
+                System.out.println("Customer has been served..");
+                Burgercount -= 5;
             } else {
-                //if (q3[0] == 'X' & q3[1] == 'X' & q3[2] == 'X' & q3[3] == 'X' & q3[4] == 'X'){
-                System.out.print("         " + q3[i]);
-                System.out.println();
-                //}
-
+                System.out.println("No customer is in the que to serve");
             }
 
-            System.out.print("Press any character to load the main menu... : ");
-            input.next().charAt(0);
+        } else if (len == 3) {
+            if (Q2[0][1] == "0") {
+                Q2[0][0] = Q2[1][0];
+                Q2[0][1] = Q2[1][1];
+                Q2[1][0] = Q2[2][0];
+                Q2[1][1] = Q2[2][1];
+                Q2[2][0] = "";
+                Q2[2][1] = "X";
+
+                System.out.println("Customer has been served..");
+                Burgercount -= 5;
+            } else {
+                System.out.println("No customer is in the que to serve");
+            }
+
+        } else if (len == 5) {
+            if (Q3[0][1] == "0") {
+                Q3[0][0] = Q3[1][0];
+                Q3[0][1] = Q3[1][1];
+                Q3[1][0] = Q3[2][0];
+                Q3[1][1] = Q3[2][1];
+                Q3[2][0] = Q3[3][0];
+                Q3[2][1] = Q3[3][1];
+                Q3[3][0] = Q3[4][0];
+                Q3[3][1] = Q3[4][1];
+                Q3[4][0] = "";
+                Q3[4][1] = "X";
+                System.out.println("Customer has been served..");
+                Burgercount -= 5;
+            } else {
+                System.out.println("No customer is in the que to serve");
+            }
         }
 
     }
-
-    public static void updateRemovearray(String[][] twoDArray){
-
-        String[] arrayToRemove = {"", "X"};
-        String[] arrayToAdd = {"", "X"};
-
-        int indexToRemove = -1;
-        for (int i = 0; i < twoDArray.length; i++) {
-            if (Arrays.equals(twoDArray[i], arrayToRemove)) {
-                indexToRemove = i;
-                break;
-            }
-        }
-        if (indexToRemove != -1) {
-            String[][] tempArray = new String[twoDArray.length - 1][];
-            System.arraycopy(twoDArray, 0, tempArray, 0, indexToRemove);
-            System.arraycopy(twoDArray, indexToRemove + 1, tempArray, indexToRemove, twoDArray.length - indexToRemove - 1);
-            twoDArray = tempArray;
-        }
-        String[][] newArray = Arrays.copyOf(twoDArray, twoDArray.length + 1);
-        newArray[newArray.length - 1] = arrayToAdd;
-        twoDArray = newArray;
-
-        System.out.println("Customer removed & updated the que sucessfully..");
-
-    }
-    public static void removeCustomer(){
+    
+    public static void removeServedcustomer(){
         Scanner input = new Scanner(System.in);
 
-        outer:while(true){
-            line();
-            System.out.println("\t\t\t\t\t\t  REMOVE A CUSTOMER \t\t\t\t\t       ");
-            line();
-            System.out.println();
+        outer:while (true) {
+            System.out.print("Enter Que number you want serve first>>");
+            int servedCustomerque = input.nextInt();
 
-            System.out.println("Enter the que and the position you want to remove>> ");
-            System.out.print("\t\tQue: ");
-            int que = input.nextInt();
-            System.out.print("\t\tPosition: ");
-            int position = input.nextInt();
-
-
-            if(que == 1 & position == 1){
-                if (Q1[0][1] == "0") {
-                    Q1[0][1] = "X";
-                    Q1[0][0] = "";
-                    updateRemovearray(Q1);
-                    break;
-                }
-                else {
-                    System.out.println("No customer is in that position.");
-                    continue;
-                }
-            }
-            else if(que == 1 & position == 2){
-                if (Q1[1][1] == "0") {
-                    Q1[1][1] = "X";
-                    Q1[1][0] = "";
-                    updateRemovearray(Q1);
-                    break;
-                }
-                else {
-                    System.out.println("No customer is in that position.");
-                    continue;
-                }
-            }
-            else if(que == 2 & position == 1){
-                if (Q2[0][1] == "0") {
-                    Q2[0][1] = "X";
-                    Q2[0][0] = "";
-                    updateRemovearray(Q2);
-                    break;
-                }
-                else {
-                    System.out.println("No customer is in that position.");
-                    continue;
-                }
-            }
-            else if(que == 2 & position == 2){
-                if (Q2[1][1] == "0") {
-                    Q2[1][1] = "X";
-                    Q2[1][0] = "";
-                    updateRemovearray(Q2);
-                    break;
-                }
-                else {
-                    System.out.println("No customer is in that position.");
-                    continue;
-                }
-            }
-            else if(que == 2 & position == 3){
-                if (Q2[2][1] == "0") {
-                    Q2[2][1] = "X";
-                    Q2[2][0] = "";
-                    updateRemovearray(Q2);
-                    break;
-                }
-                else {
-                    System.out.println("No customer is in that position.");
-                    continue;
-                }
-            }
-            else if(que == 3 & position == 1){
-                if (Q3[0][1] == "0") {
-                    Q3[0][1] = "X";
-                    Q3[0][0] = "";
-                    updateRemovearray(Q3);
-                    break;
-                }
-                else {
-                    System.out.println("No customer is in that position.");
-                    continue;
-                }
-            }
-            else if(que == 3 & position == 2){
-                if (Q3[1][1] == "0") {
-                    Q3[1][1] = "X";
-                    Q3[1][0] = "";
-                    updateRemovearray(Q3);
-                    break;
-                }
-                else {
-                    System.out.println("No customer is in that position.");
-                    continue;
-                }
-            }
-            else if(que == 3 & position == 3){
-                if (Q3[2][1] == "0") {
-                    Q3[2][1] = "X";
-                    Q3[2][0] = "";
-                    updateRemovearray(Q3);
-                    break;
-                }
-                else {
-                    System.out.println("No customer is in that position.");
-                    continue;
-                }
-            }
-            else if(que == 3 & position == 4){
-                if (Q3[3][1] == "0") {
-                    Q3[3][1] = "X";
-                    Q3[3][0] = "";
-                    updateRemovearray(Q3);
-                    break;
-                }
-                else {
-                    System.out.println("No customer is in that position.");
-                    continue;
-                }
-            }
-            else if(que == 3 & position == 5){
-                if (Q3[4][1] == "0") {
-                    Q3[4][1] = "X";
-                    Q3[4][0] = "";
-                    updateRemovearray(Q3);
-                    break;
-                }
-                else {
-                    System.out.println("No customer is in that position.");
-                    continue;
-                }
+            if (servedCustomerque == 1)
+                removeServedcustomerLogic(Q1, Q1.length);
+            else if (servedCustomerque == 2)
+                removeServedcustomerLogic(Q2, Q2.length);
+            else if (servedCustomerque == 3)
+                removeServedcustomerLogic(Q3, Q3.length);
+            else {
+                System.out.println("Invalid input.");
+                continue;
             }
 
             while (true) {
-                System.out.print("Do you want to add another Customer (Y/N) : ");
+                System.out.print("Do you want to add Serve another Customer (Y/N) : ");
                 char ch = input.next().charAt(0);
                 if (ch == 'Y' || ch == 'y') {
                     clearConsole();
@@ -331,9 +195,156 @@ public class ShopSystem {
 
                 }
             }
-
         }
     }
+
+    public static int removeCustomerLogic(String[][] removeArray,int removelen,int position){
+
+
+        if (removelen == 2) {
+            if (Q1[0][1] == "0" & position == 1) {
+                Q1[0][0] = Q1[1][0];
+                Q1[0][1] = Q1[1][1];
+                Q1[1][0] = "";
+                Q1[1][1] = "X";
+                System.out.println("Customer has been removed..");
+
+            } else if (Q1[1][1] == "0" & position == 2) {
+                Q1[1][0] = "";
+                Q1[1][1] = "X";
+                System.out.println("Customer has been removed..");
+
+            } else {
+                System.out.println("There is no cutomer in that position.");
+                return 0;
+            }
+
+        } else if (removelen == 3) {
+            if (Q2[0][1] == "0" & position == 1) {
+                Q2[0][0] = Q2[1][0];
+                Q2[0][1] = Q2[1][1];
+                Q2[1][0] = Q2[2][0];
+                Q2[1][1] = Q2[2][1];
+                Q2[2][0] = "";
+                Q2[2][1] = "X";
+                System.out.println("Customer has been removed..");
+            } else if (Q2[1][1] == "0" & position == 2) {
+                Q2[1][0] = Q2[2][0];
+                Q2[1][1] = Q2[2][1];
+                Q2[2][0] = "";
+                Q2[2][1] = "X";
+                System.out.println("Customer has been removed");
+            } else if (Q2[2][1] == "0" & position == 3) {
+                Q2[2][0] = "";
+                Q2[2][1] = "X";
+                System.out.println("Customer has been removed");
+            } else {
+                System.out.println("There is no cutomer in that position.");
+                return 0;
+            }
+        } else if (removelen == 5) {
+            if (Q3[0][1] == "0" & position == 1) {
+                Q3[0][0] = Q3[1][0];
+                Q3[0][1] = Q3[1][1];
+                Q3[1][0] = Q3[2][0];
+                Q3[1][1] = Q3[2][1];
+                Q3[2][0] = Q3[3][0];
+                Q3[2][1] = Q3[3][1];
+                Q3[3][0] = Q3[4][0];
+                Q3[3][1] = Q3[4][1];
+                Q3[4][0] = "";
+                Q3[4][1] = "X";
+                System.out.println("Customer has been removed");
+            } else if (Q3[1][1] == "0" & position == 2) {
+                Q3[1][0] = Q3[2][0];
+                Q3[1][1] = Q3[2][1];
+                Q3[2][0] = Q3[3][0];
+                Q3[2][1] = Q3[3][1];
+                Q3[3][0] = Q3[4][0];
+                Q3[3][1] = Q3[4][1];
+                Q3[4][0] = "";
+                Q3[4][1] = "X";
+                System.out.println("Customer has been removed");
+            } else if (Q3[2][1] == "0" & position == 3) {
+                Q3[2][0] = Q3[3][0];
+                Q3[2][1] = Q3[3][1];
+                Q3[3][0] = Q3[4][0];
+                Q3[3][1] = Q3[4][1];
+                Q3[4][0] = "";
+                Q3[4][1] = "X";
+                System.out.println("Customer has been removed");
+            } else if (Q3[3][1] == "0" & position == 4) {
+                Q3[3][0] = Q3[4][0];
+                Q3[3][1] = Q3[4][1];
+                Q3[4][0] = "";
+                Q3[4][1] = "X";
+                System.out.println("Customer has been removed");
+            } else if (Q3[4][1] == "0" & position == 5) {
+                Q3[4][0] = "";
+                Q3[4][1] = "X";
+                System.out.println("Customer has been removed");
+            } else {
+                System.out.println("There is no cutomer in that position.");
+                return 0;
+            }
+        }
+    return 5;
+    }
+
+
+    public static void removeCustomer(){
+        Scanner input = new Scanner(System.in);
+
+        while(true){
+            line();
+            System.out.println("\t\t\t\t\t\t  REMOVE A CUSTOMER \t\t\t\t\t       ");
+            line();
+            System.out.println();
+
+            System.out.println("Enter the que and the position you want to remove>> ");
+            System.out.print("\t\tQue: ");
+            int que = input.nextInt();
+            System.out.print("\t\tPosition: ");
+            int position = input.nextInt();
+
+            if(que == 1) {
+                if (position > 0 & position <= 2) {
+                    int a=removeCustomerLogic(Q1, Q1.length, position);
+                    if(a == 0) continue;
+                    break;
+                } else {
+                    System.out.println("Enter correct position");
+
+                }
+            }
+            else if (que == 2) {
+                if (position > 0 & position <= 3) {
+                    int a = removeCustomerLogic(Q2, Q2.length, position);
+                    if(a == 0) continue;
+                    break;
+                } else {
+                    System.out.println("Enter correct position");
+                    continue;
+                }
+            }
+            else if (que == 3){
+                if (position > 0 & position <= 5) {
+                    int a = removeCustomerLogic(Q3, Q3.length, position);
+                    if(a == 0) continue;
+                    break;
+                } else {
+                    System.out.println("Enter correct position");
+                    continue;
+                }
+            }
+            else {
+                System.out.println("Enter correct que number");
+                continue ;
+            }
+      }
+
+    }
+
     public static void checkandfill0s(String addname) {
         Scanner input = new Scanner(System.in);
 
@@ -445,9 +456,110 @@ public class ShopSystem {
         }
     }
 
+    public static void ViewRemainingBurgerStock(){
+        System.out.println("Remaining Burger Count: " + Burgercount);
+    }
+    public static void AddBurgertoStock(){
+        while (true) {
+            Scanner input = new Scanner(System.in);
+
+            System.out.println("Enter the burger amount to add: ");
+            int refill_burger = input.nextInt();
+
+            if ((Burgercount + refill_burger) > 50) {
+                System.out.println("Exceed the max burger count.");
+                continue;
+            }
+            else{
+                Burgercount = Burgercount + refill_burger;
+                System.out.println("Stock updated.");
+                break;
+            }
+
+        }
+    }
+
+    public static void sortArray(){
+        Scanner input = new Scanner(System.in);
+
+        String[] arr = {Q1[0][0], Q1[1][0], Q2[0][0], Q2[1][0], Q2[2][0], Q3[0][0], Q3[1][0], Q3[2][0], Q3[3][0], Q3[4][0] };
+
+        int n = arr.length;
+
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                // Compare adjacent strings and swap them if necessary
+                if (arr[j].compareToIgnoreCase(arr[j + 1]) > 0) {
+                    String temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+            }
+        }
+        for (int i=0; i<arr.length; i++) {
+            if (!arr[i].equals("")){
+                System.out.println(arr[i]);
+            }
+
+        }
+
+    }
+
+    public static void writeDataintoFile(){
+
+        try {
+            // Step 1: Create an object of BufferedWriter
+            BufferedWriter f_writer
+                    = new BufferedWriter(new FileWriter(
+                    "C:\\Users\\KMN IT\\Desktop\\JavaCW\\demo.txt"));
+
+            f_writer.write("--------Customer names ------\n");
+
+            for(int i=0; i< Q1.length;  i++){
+                if(Q1[i][1] == "0")
+                    f_writer.write(Q1[i][0] + "\n");
+            }
+
+            // Write text(content) to file
+            for(int i=0; i< Q2.length;  i++){
+                if(Q2[i][1] == "0")
+                 f_writer.write(Q2[i][0] + "\n");
+
+            }
+            for(int i=0; i< Q3.length;  i++){
+                if(Q3[i][1] == "0")
+                f_writer.write(Q3[i][0] + "\n");
+            }
+
+            // Display message showcasing
+            // successful execution of the program
+            System.out.print("File is created successfully with the content.\n");
+
+            f_writer.close();
+        }
+        // Catch block to handle if exceptions occurs
+        catch (IOException e) {
+
+            // Print the exception on console
+            // using getMessage() method
+            System.out.print(e.getMessage());
+        }
+    }
+
+    public static void readFile() throws Exception
+    {
+        // pass the path to the file as a parameter
+        File file = new File(
+                "C:\\Users\\KMN IT\\Desktop\\JavaCW\\demo.txt");
+        Scanner sc = new Scanner(file);
+
+        while (sc.hasNextLine())
+            System.out.println(sc.nextLine());
+    }
+
     public static void homepage(){
         line();
-        System.out.println("                      |\t\t\t\t\t\t  iHungry Burger  \t\t\t\t\t       |             ");
+        System.out.println("                      |\t\t\t\t\t\t  Foodies Fave Food Center \t\t\t\t\t       |             ");
         line();
         System.out.println();
         System.out.println("\t\t\t 1) View All Queues.              -[VFQ/100] \t\t  2) View All Empty Queues.      -[VEQ/101]");
@@ -457,9 +569,13 @@ public class ShopSystem {
         System.out.println("\t\t\t 9) View Remaining burgers Stock. -[STK/108] \t\t  10) Add burgers to Stock       -[AFS/109]");
         System.out.println(" \n\t\t\t 11) Exit the Program.  -[999/EXT]                                                                            ");
         System.out.println();
+
+        if(Burgercount <= 10){
+            System.out.println("WARNING: Stock is reaching out of the limit.Remaining burger count: " + Burgercount);
+        }
     }
 
-    public static void main(String[] args){
+    public static void main(String[] args) throws Exception {
         clearConsole();
         Scanner input = new Scanner(System.in);
 
@@ -484,7 +600,6 @@ public class ShopSystem {
                 case "101":
                 case "VEQ":
                     viewAllEmptyQueues2();
-                    //viewAllEmptyQueues();
                     homepage();
                     break;
                 case "102":
@@ -495,31 +610,34 @@ public class ShopSystem {
                 case "103":
                 case "RCQ":
                     removeCustomer();
+                    homepage();
                     break;
                 case "104":
                 case "PCQ":
-                    //get the 'B' image;
+                    removeServedcustomer();
+                    homepage();
                     break;
                 case "105":
                 case "VCS":
-                    //get the 'B' image;
+                    sortArray();
+                    homepage();
                     break;
                 // (...)
                 case "106":
                 case "SPD":
-                    //get the 'Z' image;
+                    writeDataintoFile();
                     break;
                 case "107":
                 case "LPD":
-                    //get the 'Z' image;
+                    readFile();
                     break;
                 case "108":
                 case "STK":
-                    //get the 'Z' image;
+                    ViewRemainingBurgerStock();
                     break;
                 case "109":
                 case "AFS":
-                    //get the 'Z' image;
+                    AddBurgertoStock();
                     break;
 
                 default:
